@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tip Out Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      max-width: 400px;
+    }
+    input {
+      width: 100%;
+      margin: 5px 0 15px 0;
+      padding: 8px;
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      background: #222;
+      color: white;
+      border: none;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background: #f8f8f8;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Tip Out Calculator</h2>
+
+  <label>Total Tips: </label>
+  <input id="totalTips" type="number" step="0.01" />
+
+  <label>Bartenders: </label>
+  <input id="bartenders" type="number" />
+
+  <label>Barbacks: </label>
+  <input id="barbacks" type="number" />
+
+  <label>Bouncers: </label>
+  <input id="bouncers" type="number" />
+
+  <button onclick="runCalc()">Calculate</button>
+
+  <div id="output" class="result"></div>
+
+  <script>
+    function calculateTipOut(totalTips, numBartenders, numBarbacks, numBouncers) {
+      const bartenderWeight = 1;
+      const barbackWeight = 1 / 3;
+      const bouncerWeight = 1 / 4;
+
+      const totalWeight =
+        numBartenders * bartenderWeight +
+        numBarbacks * barbackWeight +
+        numBouncers * bouncerWeight;
+
+      if (totalWeight === 0) {
+        return { error: "Total workers must be greater than zero." };
+      }
+
+      const tipPerWeight = totalTips / totalWeight;
+
+      return {
+        Bartender: (tipPerWeight * bartenderWeight).toFixed(2),
+        Barback: (tipPerWeight * barbackWeight).toFixed(2),
+        Bouncer: (tipPerWeight * bouncerWeight).toFixed(2)
+      };
+    }
+
+    function runCalc() {
+      const totalTips = parseFloat(document.getElementById("totalTips").value);
+      const bartenders = parseInt(document.getElementById("bartenders").value);
+      const barbacks = parseInt(document.getElementById("barbacks").value);
+      const bouncers = parseInt(document.getElementById("bouncers").value);
+
+      const result = calculateTipOut(totalTips, bartenders, barbacks, bouncers);
+
+      const output = document.getElementById("output");
+
+      if (result.error) {
+        output.innerHTML = `<strong>Error:</strong> ${result.error}`;
+        return;
+      }
+
+      output.innerHTML = `
+        <strong>Results:</strong><br>
+        Bartenders: $${result.Bartender}<br>
+        Barbacks: $${result.Barback}<br>
+        Bouncers: $${result.Bouncer}
+      `;
+    }
+  </script>
+</body>
+</html>

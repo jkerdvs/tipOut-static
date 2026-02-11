@@ -1,85 +1,230 @@
+/* --------------------
+   Global Reset & Font
+-------------------- */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #111;
-    color: white;
+    font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+    /* Nightclub background */
+    background: radial-gradient(
+        circle at top,
+        #1a0f12 0%,
+        #0d0d0d 45%,
+        #090909 100%
+    );
+
+    color: #ffffff;
+
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
 
+/* --------------------
+   Main Container (Glass)
+-------------------- */
+
 .container {
-    background: #1a1a1a;
-    padding: 32px;
     width: 90%;
     max-width: 420px;
-    border-radius: 16px;
+    padding: 36px 32px;
+
+    background: rgba(20, 20, 20, 0.75);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    border-radius: 18px;
+    border: 1px solid rgba(255, 59, 59, 0.15);
+
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.7),
+        0 0 40px rgba(255, 59, 59, 0.12);
+
     text-align: center;
-    box-shadow: 0px 0px 20px rgba(255, 0, 0, 0.25);
 }
 
+/* --------------------
+   Title
+-------------------- */
+
 .title {
-    color: #ff3b3b;
-    margin-bottom: 24px;
     font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 28px;
+
+    color: #ff3b3b;
+    letter-spacing: 0.5px;
 }
+
+/* --------------------
+   Input Groups
+-------------------- */
 
 .input-group {
     margin-bottom: 18px;
-    text-align: center;
 }
 
 label {
     display: block;
     margin-bottom: 6px;
-    font-size: 15px;
-    color: #ccc;
-    text-align: center;
-    font-weight: bold;
+
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+
+    color: rgba(255, 255, 255, 0.7);
 }
 
+/* --------------------
+   Inputs (Solid, Not Glass)
+-------------------- */
 
 input {
     width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #333;
-    background: #222;
-    color: white;
+    padding: 12px 12px;
+
+    background: #181818;
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+
+    color: #ffffff;
     font-size: 16px;
+    font-family: inherit;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
 }
 
 input:focus {
     outline: none;
+    background: #1c1c1c;
+
     border-color: #ff3b3b;
+    box-shadow: 0 0 0 2px rgba(255, 59, 59, 0.25);
 }
+
+/* --------------------
+   Button
+-------------------- */
 
 .btn {
     width: 100%;
-    padding: 12px;
-    background: #ff3b3b;
+    margin-top: 12px;
+    padding: 14px;
+
+    background: linear-gradient(135deg, #ff3b3b, #d92a2a);
     border: none;
-    border-radius: 8px;
-    color: white;
-    font-size: 18px;
+    border-radius: 12px;
+
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 600;
+    font-family: inherit;
+    letter-spacing: 0.4px;
+
     cursor: pointer;
-    margin-top: 10px;
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        background 0.15s ease;
 }
 
 .btn:hover {
-    background: #e22f2f;
+    transform: translateY(-2px);
+    box-shadow:
+        0 10px 25px rgba(255, 59, 59, 0.35);
 }
 
-.results {
-    margin-top: 24px;
-    background: #222;
-    padding: 20px;
-    border-radius: 12px;
-    border-left: 4px solid #ff3b3b;
-    text-align: left;
+.btn:active {
+    transform: translateY(0);
+    box-shadow:
+        0 6px 16px rgba(255, 59, 59, 0.25);
 }
+
+/* --------------------
+   Results Panel
+-------------------- */
+
+.results {
+    margin-top: 26px;
+    padding: 22px 20px;
+
+    background: rgba(30, 30, 30, 0.85);
+    border-radius: 14px;
+
+    border-left: 4px solid #ff3b3b;
+
+    text-align: left;
+
+    animation: fadeUp 0.35s ease forwards;
+}
+
+.results h3 {
+    margin-top: 0;
+    margin-bottom: 14px;
+
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+/* Individual result rows */
+.results p {
+    margin: 10px 0;
+    font-size: 15px;
+    font-weight: 500;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.results strong {
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* --------------------
+   Hidden Utility
+-------------------- */
 
 .hidden {
     display: none;
+}
+
+/* --------------------
+   Animations
+-------------------- */
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --------------------
+   Reduced Motion Support
+-------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
 }
